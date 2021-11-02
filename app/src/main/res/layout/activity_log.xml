@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.LogActivity"
+    android:id="@+id/activity_log_layout">
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/ic_background_restaurant"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"/>
+
+<ImageView
+    android:id="@+id/logo_app"
+    android:src="@drawable/ic_launcher_logo_foreground"
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:layout_marginHorizontal="80dp"
+    android:layout_marginTop="60dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+<TextView
+    android:id="@+id/name_app"
+    style="@style/TextAppearance.MaterialComponents.Headline2"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:text="Go4Lunch"
+    android:layout_marginHorizontal="20dp"
+    android:textStyle="bold"
+    android:textColor="@color/colorBlank"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/logo_app" />
+
+<TextView
+    android:id="@+id/description_app"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:textColor="@color/colorBlank"
+    android:layout_marginHorizontal="20dp"
+    android:textStyle="italic"
+    android:text="@string/sub_title_log_activity"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/name_app" />
+
+<Button
+    android:id="@+id/log_with_facebook"
+    style="@style/Widget.MaterialComponents.Button.Icon"
+    app:iconTint="#FFFFFF"
+    app:icon="@drawable/ic_baseline_facebook_24"
+    android:text="@string/sign_with_fb_log_activity"
+    app:backgroundTint="@color/colorFacebook"
+    android:textColor="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="80dp"
+    android:layout_marginHorizontal="24dp"
+    android:padding="16dp"
+    app:layout_constraintBottom_toTopOf="@id/log_with_google"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/description_app" />
+
+<Button
+    android:id="@+id/log_with_google"
+    style="@style/Widget.MaterialComponents.Button.Icon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/sign_with_google_log_activity"
+    android:textColor="@color/colorBlank"
+    android:backgroundTint="@color/colorPrimary"
+    android:padding="16dp"
+    android:layout_marginHorizontal="24dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/log_with_facebook" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_mobile"
+    app:startDestination="@id/bn_map_view">
+    >
+
+    <fragment
+        android:id="@+id/bn_map_view"
+        android:name="com.francotte.go4lunch_opc.ui.MapViewFragment"
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_map_view" />
+
+    <fragment
+        android:id="@+id/bn_list_view"
+        android:name="com.francotte.go4lunch_opc.ui.ListViewFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_list_view" />
+
+    <fragment
+        android:id="@+id/bn_workmates"
+        android:name="com.francotte.go4lunch_opc.ui.WorkmatesFragment"
+        android:label="Notification"
+        tools:layout="@layout/fragment_workmates" />
+
+</navigation>

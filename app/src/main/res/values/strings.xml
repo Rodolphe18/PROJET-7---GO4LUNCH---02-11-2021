@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Go4Lunch_OPC</string>
+
+
+    <string name="sub_title_log_activity">Find a nice restaurant and invite your co-workers for lunch!</string>
+    <string name="sign_with_fb_log_activity">Sign in with Facebook</string>
+    <string name="sign_with_google_log_activity">Sign in with Google</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Map View</string>
+
+    <!--NAV MENU-->
+    <string name="nav_menu_your_lunch">YOUR LUNCH</string>
+    <string name="nav_menu_settings">SETTINGS</string>
+    <string name="nav_menu_logout">LOGOUT</string>
+
+    <string name="messages">MESSAGES</string>
+    <string name="favorite_lunch">FAVORITE</string>
+    <string name="favorite_activity_title">My Favorite</string>
+
+    <string name="facebook_app_id">243355614384710</string>
+    <string name="fb_login_protocol_scheme">fb243355614384710</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="ApiKey" templateMergeStrategy="preserve" translatable="false">AIzaSyDDNE6N-Ltg6BZQTyLt5Rfcs6ogJO0ZBGA</string>
+    <string name="ToolbarMainTitle">IM HUNGRY</string>
+
+    <string name="place_opening">Open</string>
+    <string name="place_closed">Close</string>
+
+</resources>

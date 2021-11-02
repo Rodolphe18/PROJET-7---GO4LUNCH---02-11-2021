@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBlank">#FFFFFF</color>
+    <color name="colorPrimary">#FF5722</color>
+    <color name="colorPrimaryVariant">#FF7D54</color>
+    <color name="colorPrimaryDark">#676767</color>
+    <color name="colorAccent">#2196F3</color>
+    <color name="colorFacebook">#2196F3</color>
+    <color name="ic_launcher_logo_background">#FF5722</color>
+    <color name="colorBlack">#17202A</color>
+</resources>

@@ -1,32 +1,65 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Go4Lunch_OPC</string>
 
-
+    <!-- LOG ACTIVITY -->
     <string name="sub_title_log_activity">Find a nice restaurant and invite your co-workers for lunch!</string>
     <string name="sign_with_fb_log_activity">Sign in with Facebook</string>
     <string name="sign_with_google_log_activity">Sign in with Google</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Map View</string>
+    <!-- SETTINGS ACTIVITY -->
+    <string name="pop_message_delete_account">Are you sure delete this account ?</string>
+    <string name="positive_answer">Yes</string>
+    <string name="negative_answer">No</string>
 
-    <!--NAV MENU-->
-    <string name="nav_menu_your_lunch">YOUR LUNCH</string>
-    <string name="nav_menu_settings">SETTINGS</string>
-    <string name="nav_menu_logout">LOGOUT</string>
+    <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 
-    <string name="messages">MESSAGES</string>
-    <string name="favorite_lunch">FAVORITE</string>
-    <string name="favorite_activity_title">My Favorite</string>
-
-    <string name="facebook_app_id">243355614384710</string>
-    <string name="fb_login_protocol_scheme">fb243355614384710</string>
+    <string name="title_Map_View">Map View</string>
+    <string name="title_List_View">List View</string>
+    <string name="title_Workmates">Workmates</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="ApiKey" templateMergeStrategy="preserve" translatable="false">AIzaSyDDNE6N-Ltg6BZQTyLt5Rfcs6ogJO0ZBGA</string>
-    <string name="ToolbarMainTitle">IM HUNGRY</string>
-
+    <!-- CONNECTION -->
+    <string name="connection_success">Success connect</string>
+    <string name="connection_error_canceled">Error canceled</string>
+    <string name="connection_error_no_internet">Error no internet</string>
+    <string name="connection_error_unknown">Unknown error</string>
+   <!--ALERT MESSAGE-->
+    <string name="alert_message_no_gps">Your GPS seems to be disabled, do you want to enable it?</string>
+    <!--NAV MENU-->
+    <string name="nav_menu_your_lunch">YOUR LUNCH</string>
+    <string name="nav_menu_settings">SETTINGS</string>
+    <string name="nav_menu_logout">LOGOUT</string>
+    <!--DETAIL ACTIVITY-->
+    <string name="detail_activity_button_call">CALL</string>
+    <string name="detail_activity_button_like">LIKE</string>
+    <string name="detail_activity_button_website">WEBSITE</string>
     <string name="place_opening">Open</string>
     <string name="place_closed">Close</string>
+    <!--SETTINGS ACTIVITY-->
+    <string name="settings_activity_text_notification">Notification</string>
+    <string name="settings_activity_text_account">Account</string>
+    <string name="settings_activity_button_delete_account">delete account</string>
+    <!--MAIN ACTIVITY-->
+    <string name="main_activity_title">I\'am hungry !</string>
+    <string name="main_activity_title_workmates">Available workmates</string>
+    <string name="alert_msg_today_eat">Today you will eat at </string>
+    <string name="item_is_eating"> is eating </string>
+    <string name="joined_state_workmates"> is joining!</string>
+    <string name="not_decided_state_workmates"> hasn\'t decided yet</string>
+    <string name="alert_not_again_choose">you have not again choose your lunch</string>
+    <string name="no_restaurant">No restaurant around</string>
+    <string name="notification_title">Go4Lunch, new notification !</string>
+    <string name="default_notification_channel_id">messages_notification</string>
+    <string name="messages">MESSAGES</string>
+    <string name="favorite_lunch">FAVORITE</string>
+    <string name="favorite_activity_title">My Favorite</string>
+    <string name="error_loading_firebase">Failed loading data, verify your connexion</string>
+    <string name="alert_message_no_internet">No internet, please active internet</string>
+    <string name="notification_part_1_hey">Hey "</string>
+    <string name="notification_part_2_eating">, today you eat </string>
+    <string name="notification_part_3_with">with</string>
+    <string name="notification_not_deceixded">You have not deceided where you eating !</string>
 
 </resources>

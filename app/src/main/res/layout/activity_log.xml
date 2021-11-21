@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.LogActivity"
-    android:id="@+id/activity_log_layout">
+    android:id="@+id/activity_log_constraint_layout">
 
 <ImageView
     android:layout_width="match_parent"

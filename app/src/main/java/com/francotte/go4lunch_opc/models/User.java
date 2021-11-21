@@ -7,56 +7,57 @@ import com.google.firebase.firestore.ServerTimestamp;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Users {
+public class User {
 
     //USER INFORMATION
     private String userId;
     private String username;
     @Nullable
-    private String urlPicture;
+    private String userUrlPicture;
     //TOKEN
     private String token;
     //PLACE INFORMATION
-
-    @Nullable private String lunchPlaceID;
+    @Nullable
+    private String userLunchPlaceID;
     @ServerTimestamp
     @Nullable
-    Date dateLunchPlaceChoice;
+    Date userDateLunchPlaceChoice;
 
-    public Users (){
+
+    public User(){
 
     }
-    public Users(String userId, String username, @Nullable String urlPicture, String token, @Nullable String lunchPlaceID, @Nullable Date dateLunchPlaceChoice) {
+    public User(String userId, String username, @Nullable String urlPicture, String token, @Nullable String userLunchPlaceID, @Nullable Date userDateLunchPlaceChoice) {
         this.userId = userId;
         this.username = username;
-        this.urlPicture = urlPicture;
+        this.userUrlPicture = urlPicture;
         this.token = token;
-        this.lunchPlaceID = lunchPlaceID;
-        this.dateLunchPlaceChoice = dateLunchPlaceChoice;
+        this.userLunchPlaceID = userLunchPlaceID;
+        this.userDateLunchPlaceChoice = userDateLunchPlaceChoice;
     }
 
     //GETTER
     public String getUserId() {
         return userId;
     }
-    public String getUsername() {
+    public String getUserName() {
         return username;
     }
     @Nullable
     public String getUrlPicture() {
-        return urlPicture;
+        return userUrlPicture;
     }
     @Nullable
     public String getLunchPlaceID() {
 
-        if(dateLunchPlaceChoice != null){
+        if(userDateLunchPlaceChoice != null){
 
             Calendar currentCal= Calendar.getInstance();
             Calendar calLunchPlace = Calendar.getInstance();
-            calLunchPlace.setTime(dateLunchPlaceChoice);
+            calLunchPlace.setTime(userDateLunchPlaceChoice);
 
             if(currentCal.get(Calendar.DAY_OF_MONTH) == calLunchPlace.get(Calendar.DAY_OF_MONTH)){
-                return lunchPlaceID;
+                return userLunchPlaceID;
             }else{
                 return null;
             }
@@ -68,23 +69,23 @@ public class Users {
     }
     @Nullable
     public Date getDateLunchPlace(){
-        return dateLunchPlaceChoice;
+        return userDateLunchPlaceChoice;
     }
     public String getToken (){ return token; }
     //SETTER
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    public void setUsername(String username) {
+    public void setUserName(String username) {
         this.username = username;
     }
     public void setUrlPicture(@Nullable String urlPicture) {
-        this.urlPicture = urlPicture;
+        this.userUrlPicture = urlPicture;
     }
     public void setLunchPlaceID(@Nullable String lunchPlaceID) {
-        this.lunchPlaceID = lunchPlaceID;
+        this.userLunchPlaceID = lunchPlaceID;
     }
-    public void setDateLunchPlace(@Nullable Date dateLunchPlaceChoice){ this.dateLunchPlaceChoice = dateLunchPlaceChoice; }
+    public void setDateLunchPlace(@Nullable Date dateLunchPlaceChoice){ this.userDateLunchPlaceChoice = dateLunchPlaceChoice; }
     public void setToken (String token){ this.token = token; }
 
 }

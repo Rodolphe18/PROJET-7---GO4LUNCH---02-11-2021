@@ -1,7 +1,9 @@
 package com.francotte.go4lunch_opc.viewmodel;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 
@@ -10,21 +12,25 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModel;
 
-import com.francotte.go4lunch_opc.repository.UserRepository;
+import com.firebase.ui.auth.AuthUI;
+import com.francotte.go4lunch_opc.service.UserHelper;
+import com.francotte.go4lunch_opc.ui.LogActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
-import service.GoogleMapPlacesCall;
+import com.francotte.go4lunch_opc.service.GoogleMapPlacesCall;
 
 public class MainViewModel extends ViewModel {
 
-    private UserRepository userRepository;
+    private static final int SIGN_OUT_TASK = 10;
+    private static final int DELETE_USER_TASK = 20;
+
     final FusedLocationProviderClient fusedLocationProviderClient;
     private final WeakReference<Context> context;
 
@@ -35,26 +41,46 @@ public class MainViewModel extends ViewModel {
 
     // GET CURRENT USER
     @Nullable
-    protected FirebaseUser getCurrentUser() {
-        return userRepository.getCurrentUser();
+    public FirebaseUser getCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
     }
 
     //SIGN OUT USER
     public void signOutUserFromFirebase(Context context) {
-        userRepository.signOutUserFromFirebase(context);
+        AuthUI.getInstance()
+                .signOut(context)
+                .addOnSuccessListener((Activity) context, updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK, context));
     }
-
     // DELETE USER
     public void deleteUserFromFirebase(Context context) {
         if (getCurrentUser() != null) {
-            userRepository.deleteUserFromFirebase();
+            UserHelper.deleteUser(getCurrentUser().getUid());
+            AuthUI.getInstance().delete(context).addOnSuccessListener((Activity) context, updateUIAfterRESTRequestsCompleted(DELETE_USER_TASK, context));
         }
     }
-
+    // UPDATE UI
+    private OnSuccessListener<Void> updateUIAfterRESTRequestsCompleted(final int origin, final Context context) {
+        return new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                switch (origin) {
+                    case SIGN_OUT_TASK:
+                        ((Activity) context).finish();
+                        break;
+                    case DELETE_USER_TASK:
+                        Intent intent = new Intent(context, LogActivity.class);
+                        ((Activity) context).startActivity(intent);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+    }
+    //REQUEST API PLACES
     public void getNearbyPlaces(GoogleMapPlacesCall.CallbacksFetchNearbyPlace callbacksFetchNearbyPlace, String location) {
         GoogleMapPlacesCall.fetchNearbyPlaces(callbacksFetchNearbyPlace, location);
     }
-
     //GET LOCATION
     public Task<Location> getUserLocation() {
         if (ActivityCompat.checkSelfPermission(context.get(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context.get(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -62,4 +88,5 @@ public class MainViewModel extends ViewModel {
         }
         return fusedLocationProviderClient.getLastLocation();
     }
+
 }

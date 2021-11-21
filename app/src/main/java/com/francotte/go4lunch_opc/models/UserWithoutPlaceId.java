@@ -2,7 +2,7 @@ package com.francotte.go4lunch_opc.models;
 
 import androidx.annotation.Nullable;
 
-public class UsersWithoutPlaceId {
+public class UserWithoutPlaceId {
 
     //USER INFORMATION
     private String userId;
@@ -13,7 +13,7 @@ public class UsersWithoutPlaceId {
     private String token;
 
 
-    public UsersWithoutPlaceId(String userId, String username, @Nullable String urlPicture, String token) {
+    public UserWithoutPlaceId(String userId, String username, @Nullable String urlPicture, String token) {
         this.userId = userId;
         this.username = username;
         this.urlPicture = urlPicture;

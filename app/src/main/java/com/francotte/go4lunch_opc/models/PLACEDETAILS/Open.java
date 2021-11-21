@@ -1,5 +1,5 @@
 
-package com.francotte.go4lunch_opc;
+package com.francotte.go4lunch_opc.models.PLACEDETAILS;
 
 import java.io.Serializable;
 

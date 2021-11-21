@@ -6,6 +6,8 @@ import java.io.Serializable;
 import android.os.Parcelable;
 import android.os.Parcelable.Creator;
 import android.os.Parcelable.Creator;
+
+import com.francotte.go4lunch_opc.Close;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -15,10 +17,10 @@ public class Period implements Serializable, Parcelable
 
     @SerializedName("close")
     @Expose
-    private com.francotte.go4lunch_opc.Close close;
+    private Close close;
     @SerializedName("open")
     @Expose
-    private com.francotte.go4lunch_opc.Open open;
+    private Open open;
     public final static Creator<Period> CREATOR = new Creator<Period>() {
 
 
@@ -39,7 +41,7 @@ public class Period implements Serializable, Parcelable
 
     protected Period(android.os.Parcel in) {
         this.close = ((com.francotte.go4lunch_opc.Close) in.readValue((com.francotte.go4lunch_opc.Close.class.getClassLoader())));
-        this.open = ((com.francotte.go4lunch_opc.Open) in.readValue((com.francotte.go4lunch_opc.Open.class.getClassLoader())));
+        this.open = ((Open) in.readValue((Open.class.getClassLoader())));
     }
 
     public Period() {
@@ -53,11 +55,11 @@ public class Period implements Serializable, Parcelable
         this.close = close;
     }
 
-    public com.francotte.go4lunch_opc.Open getOpen() {
+    public Open getOpen() {
         return open;
     }
 
-    public void setOpen(com.francotte.go4lunch_opc.Open open) {
+    public void setOpen(Open open) {
         this.open = open;
     }
 

@@ -1,66 +1,116 @@
 package com.francotte.go4lunch_opc.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+
 import com.francotte.go4lunch_opc.R;
+import com.francotte.go4lunch_opc.firestore.FirestoreCall;
+import com.francotte.go4lunch_opc.models.User;
+import com.francotte.go4lunch_opc.ui.adaptor.AdaptorListViewWorkmates;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link WorkmatesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class WorkmatesFragment extends Fragment {
+import java.util.ArrayList;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+public class WorkmatesFragment extends Fragment implements FirestoreCall.CallbackFirestore, FirestoreCall.CallbackFirestoreUser {
 
-    public WorkmatesFragment() {
-        // Required empty public constructor
+    // ADAPTER
+    private AdaptorListViewWorkmates mAdapterListView;
+    // PROGRESS DIALOG
+    ProgressDialog progressDialog;
+    //JUST FOR PRESENTATION
+    ExtendedFloatingActionButton eFab;
+
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_workmates, container, false);
+
+        configureToolbar(root);
+        initUI(root);
+        getAllUsers();
+        //JUST FOR PRESENTATION
+        getObjCurrentUser();
+        return root;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WorkmatesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static WorkmatesFragment newInstance(String param1, String param2) {
-        WorkmatesFragment fragment = new WorkmatesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    // Configure information into toolbar
+    private void configureToolbar (View root){
+        MainActivity activity = ((MainActivity)root.getContext());
+        activity.getSupportActionBar().setTitle(R.string.main_activity_title_workmates);
     }
 
+    // Configure UI with information
+    private void initUI(View root) {
+        // SHOW LOADING DIALOG
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.show();
+        // Recycler view
+        RecyclerView mRecyclerViewWorkmates = root.findViewById(R.id.fragment_workmates_recycler_view);
+        //JUST FOR PRESENTATION
+        eFab = root.findViewById(R.id.fragment_workmates_send_notification);
+
+        mAdapterListView = new AdaptorListViewWorkmates(getActivity(), true);
+        mRecyclerViewWorkmates.setAdapter(mAdapterListView);
+        mRecyclerViewWorkmates.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
+
+    // Get all user of this application
+    private void getAllUsers(){
+        FirestoreCall.getAllUsers(this);
+        FirestoreCall.setUpdateDataRealTime(this);
+    }
+
+    private void getObjCurrentUser() {
+        FirestoreCall.getCurrentUser(this);
+    }
+
+
+    protected FirebaseUser getCurrentUser() {
+        return FirebaseAuth.getInstance().getCurrentUser();
+    }
+
+    // Response of Method 'getAllUsers' - List user
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onSuccessGetUsers(List<User> users) {
+        String currentUserID = getCurrentUser().getUid();
+        List<User> workmatesList = new ArrayList<>();
+        for(User user : users){
+            if(!user.getUserId().equals(currentUserID)){
+                workmatesList.add(user);
+            }
         }
+        mAdapterListView.updateData(workmatesList);
+        progressDialog.dismiss();
+    }
+    @Override
+    public void onFailureGetUsers(Exception e) {
+        Log.e("WorkmatesFragment", e.getMessage());
+    }
+
+    //JUST FOR TEST
+    @Override
+    public void onSuccessGetCurrentUser(final User user) {
+        eFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workmates, container, false);
+    public void onFailureGetCurrentUser() {
     }
 }

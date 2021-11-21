@@ -15,6 +15,8 @@ public class GoogleMapPlace implements Serializable
     private String status;
     public final static Creator<GoogleMapPlace> CREATOR = new Creator<GoogleMapPlace>() {
 
+
+
         public GoogleMapPlace createFromParcel(android.os.Parcel in) {
             return new GoogleMapPlace(in);
         }
@@ -34,7 +36,7 @@ public class GoogleMapPlace implements Serializable
         this.status = ((String) in.readValue((String.class.getClassLoader())));
     }
 
-    public GoogleMapPlace() {
+    public GoogleMapPlace() {super();
     }
 
     public List<Object> getHtml_attributions() {

@@ -1,56 +1,46 @@
-
 package com.francotte.go4lunch_opc.models.NEARBYSEARCH;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Parcelable;
+public class Result implements Serializable {
 
 
-public class Result implements Serializable, Parcelable
-{
-
-    private String business_status;
     private Geometry geometry;
+
     private String icon;
-    private String icon_background_color;
-    private String icon_mask_base_uri;
+
+    private String international_phone_number;
+
+    private String id;
+
     private String name;
-    private Opening_hours opening_hours;
-    private List<Photo> photos = null;
+
+    private OpeningHours opening_hours;
+
+    private List<Photo> photos = new ArrayList<>();
+
     private String place_id;
-    private Plus_code plus_code;
-    private Integer price_level;
+
     private Double rating;
+
     private String reference;
+
     private String scope;
-    private List<String> types = null;
-    private Integer user_ratings_total;
+
+    private List<String> types = new ArrayList<>();
+
     private String vicinity;
-    public final static Creator<Result> CREATOR = new Creator<Result>() {
 
+    private Integer priceLevel;
 
-        public Result createFromParcel(android.os.Parcel in) {
-            return new Result();
-        }
-
-        public Result[] newArray(int size) {
-            return (new Result[size]);
-        }
-
-    }
-    ;
-    private final static long serialVersionUID = -7881254647711832149L;
+    private String website;
 
     public Result() {
-    }
-
-    public String getBusiness_status() {
-        return business_status;
-    }
-
-    public void setBusiness_status(String business_status) {
-        this.business_status = business_status;
     }
 
     public Geometry getGeometry() {
@@ -69,20 +59,20 @@ public class Result implements Serializable, Parcelable
         this.icon = icon;
     }
 
-    public String getIcon_background_color() {
-        return icon_background_color;
+    public String getInternational_phone_number() {
+        return international_phone_number;
     }
 
-    public void setIcon_background_color(String icon_background_color) {
-        this.icon_background_color = icon_background_color;
+    public void setInternational_phone_number(String international_phone_number) {
+        this.international_phone_number = international_phone_number;
     }
 
-    public String getIcon_mask_base_uri() {
-        return icon_mask_base_uri;
+    public String getId() {
+        return id;
     }
 
-    public void setIcon_mask_base_uri(String icon_mask_base_uri) {
-        this.icon_mask_base_uri = icon_mask_base_uri;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -93,11 +83,11 @@ public class Result implements Serializable, Parcelable
         this.name = name;
     }
 
-    public Opening_hours getOpeningHours() {
+    public OpeningHours getOpening_hours() {
         return opening_hours;
     }
 
-    public void setOpeningHours(Opening_hours opening_hours) {
+    public void setOpening_hours(OpeningHours opening_hours) {
         this.opening_hours = opening_hours;
     }
 
@@ -109,28 +99,12 @@ public class Result implements Serializable, Parcelable
         this.photos = photos;
     }
 
-    public String getPlaceId() {
+    public String getPlace_id() {
         return place_id;
     }
 
     public void setPlace_id(String place_id) {
         this.place_id = place_id;
-    }
-
-    public Plus_code getPlus_code() {
-        return plus_code;
-    }
-
-    public void setPlus_code(Plus_code plus_code) {
-        this.plus_code = plus_code;
-    }
-
-    public Integer getPrice_level() {
-        return price_level;
-    }
-
-    public void setPrice_level(Integer price_level) {
-        this.price_level = price_level;
     }
 
     public Double getRating() {
@@ -165,14 +139,6 @@ public class Result implements Serializable, Parcelable
         this.types = types;
     }
 
-    public Integer getUser_ratings_total() {
-        return user_ratings_total;
-    }
-
-    public void setUser_ratings_total(Integer user_ratings_total) {
-        this.user_ratings_total = user_ratings_total;
-    }
-
     public String getVicinity() {
         return vicinity;
     }
@@ -181,28 +147,42 @@ public class Result implements Serializable, Parcelable
         this.vicinity = vicinity;
     }
 
-    public void writeToParcel(android.os.Parcel dest, int flags) {
-        dest.writeValue(business_status);
-        dest.writeValue(geometry);
-        dest.writeValue(icon);
-        dest.writeValue(icon_background_color);
-        dest.writeValue(icon_mask_base_uri);
-        dest.writeValue(name);
-        dest.writeValue(opening_hours);
-        dest.writeList(photos);
-        dest.writeValue(place_id);
-        dest.writeValue(plus_code);
-        dest.writeValue(price_level);
-        dest.writeValue(rating);
-        dest.writeValue(reference);
-        dest.writeValue(scope);
-        dest.writeList(types);
-        dest.writeValue(user_ratings_total);
-        dest.writeValue(vicinity);
+    public Integer getPriceLevel() {
+        return priceLevel;
     }
 
-    public int describeContents() {
-        return  0;
+    public void setPriceLevel(Integer priceLevel) {
+        this.priceLevel = priceLevel;
     }
 
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    @Override
+    public String toString() {
+        return "Result{" +
+                "geometry=" + geometry +
+                ", icon='" + icon + '\'' +
+                ", international_phone_number='" + international_phone_number + '\'' +
+                ", id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", opening_hours=" + opening_hours +
+                ", photos=" + photos +
+                ", place_id='" + place_id + '\'' +
+                ", rating=" + rating +
+                ", reference='" + reference + '\'' +
+                ", scope='" + scope + '\'' +
+                ", types=" + types +
+                ", vicinity='" + vicinity + '\'' +
+                ", priceLevel=" + priceLevel +
+                ", website='" + website + '\'' +
+                '}';
+    }
 }
+
+

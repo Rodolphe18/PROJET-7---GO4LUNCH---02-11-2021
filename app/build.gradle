@@ -58,6 +58,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:22.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
 
+    //MESSAGING
+    implementation 'com.google.firebase:firebase-database:19.5.1'
+    implementation 'com.google.firebase:firebase-messaging:21.0.0'
+
     // GOOGLE API
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
@@ -67,6 +71,8 @@ dependencies {
     implementation 'com.google.android.libraries.places:places:2.4.0'
     //MAPS
     implementation 'com.google.android.libraries.maps:maps:3.1.0-beta'
+
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
 
     //RETROFIT
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'

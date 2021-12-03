@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LogActivity"
+    tools:context=".ui.activities.LogActivity"
     android:id="@+id/activity_log_constraint_layout">
 
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="centerCrop"
-    android:src="@drawable/ic_background_restaurant"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintBottom_toBottomOf="parent"/>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_background_restaurant"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 <ImageView
     android:id="@+id/logo_app"
@@ -59,7 +60,7 @@
     android:id="@+id/log_with_facebook"
     style="@style/Widget.MaterialComponents.Button.Icon"
     app:iconTint="#FFFFFF"
-    app:icon="@drawable/ic_baseline_facebook_24"
+
     android:text="@string/sign_with_fb_log_activity"
     app:backgroundTint="@color/colorFacebook"
     android:textColor="#FFFFFF"
@@ -87,6 +88,19 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/log_with_facebook" />
+
+    <Button
+        android:id="@+id/log_with_twitter"
+        style="@style/Widget.MaterialComponents.Button.Icon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:backgroundTint="#008abe"
+        android:padding="16dp"
+        android:text="@string/sign_with_twitter_log_activity"
+        android:textColor="@color/colorBlank"
+        app:layout_constraintTop_toBottomOf="@+id/log_with_google"
+        tools:layout_editor_absoluteX="24dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

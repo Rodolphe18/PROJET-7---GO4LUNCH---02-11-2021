@@ -1,103 +1,187 @@
 package com.francotte.go4lunch_opc.models;
 
-import android.widget.ImageView;
-import android.widget.TextView;
 
-public class Restaurant {
+import androidx.annotation.Nullable;
 
-    private String restaurantId;
-    private String restaurantName;
-    private String restaurantAddress;
-    private String restaurantType;
-    private int numberWorkmates;
-    private String restaurantSchedule;
-    private double restaurantUserDistance;
-    private String restaurantNote;
-    private String restaurantIcon = "";
+import com.francotte.go4lunch_opc.models.NearbySearch.Location;
 
-    public Restaurant(String restaurantId, String restaurantName, String restaurantAddress, String restaurantType, int numberWorkmates, String restaurantSchedule, double restaurantUserDistance, String restaurantNote, String restaurantIcon) {
-        this.restaurantId = restaurantId;
-        this.restaurantName = restaurantName;
-        this.restaurantAddress = restaurantAddress;
-        this.restaurantType = restaurantType;
-        this.numberWorkmates = numberWorkmates;
-        this.restaurantSchedule = restaurantSchedule;
-        this.restaurantUserDistance = restaurantUserDistance;
-        this.restaurantNote = restaurantNote;
-        this.restaurantIcon = restaurantIcon;
+import java.util.List;
+import java.util.Objects;
+
+public class Restaurant
+{
+    private String name;
+    private String address;
+    private double rating;
+    private String illustration;
+    private String placeId;
+    private List<User> userList;
+    private String phoneNumber;
+    private String website;
+    private Boolean openNow;
+    private Location location;
+    private int distanceCurrentUser;
+
+    //////// CONSTRUCTORS ////////
+
+    public Restaurant(String name, String address, String illustration, String placeId, double rating,
+                      String phoneNumber, String website, Location location) {
+
+        this.name = name;
+        this.address = address;
+        this.illustration = illustration;
+        this.placeId = placeId;
+        this.rating = rating;
+        this.phoneNumber = phoneNumber;
+        this.website = website;
+        this.location = location;
+
     }
 
-    public String getRestaurantId() {
-        return restaurantId;
+    /**
+     * Empty constructor for Firebase
+     */
+    public Restaurant() {}
+
+    /**
+     * Constructor for Detail when it's not a Restaurant
+     */
+    public Restaurant(String name)
+    {
+        this.name = name;
     }
 
-    public void setRestaurantId(String restaurantId) {
-        this.restaurantId = restaurantId;
+    /**
+     * Constructor for Notification tests
+     */
+    public Restaurant(String name, String address)
+    {
+        this.name = name;
+        this.address = address;
     }
 
-    public String getRestaurantName() {
-        return restaurantName;
+    /**
+     * Constructor for Places' Request
+     */
+    public Restaurant(String name, String address, String illustration, String placeId, double rating, Boolean openNow, Location location)
+    {
+        this.name = name;
+        this.address = address;
+        this.illustration = illustration;
+        this.placeId = placeId;
+        this.rating = rating;
+        this.openNow = openNow;
+        this.location = location;
     }
 
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
+    /**
+     * Constructor to create a Restaurant in Firebase
+     */
+    public Restaurant(String placeId, List<User> userList, String name, String address)
+    {
+        this.placeId = placeId;
+        this.userList = userList;
+        this.name = name;
+        this.address = address;
     }
 
-    public String getRestaurantAddress() {
-        return restaurantAddress;
+    //////// GETTERS ////////
+
+
+    public String getName() {
+        return name;
     }
 
-    public void setRestaurantAddress(String restaurantAddress) {
-        this.restaurantAddress = restaurantAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public String getRestaurantType() {
-        return restaurantType;
+    public double getRating() {
+        return rating;
     }
 
-    public void setRestaurantType(String restaurantType) {
-        this.restaurantType = restaurantType;
+    public String getIllustration() {
+        return illustration;
     }
 
-    public int getNumberWorkmates() {
-        return numberWorkmates;
+    public String getPlaceId() {
+        return placeId;
     }
 
-    public void setNumberWorkmates(int numberWorkmates) {
-        this.numberWorkmates = numberWorkmates;
+    public List<User> getUserList() {
+        return userList;
     }
 
-    public String getRestaurantSchedule() {
-        return restaurantSchedule;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setRestaurantSchedule(String restaurantSchedule) {
-        this.restaurantSchedule = restaurantSchedule;
+    public String getWebsite() {
+        return website;
     }
 
-    public double getRestaurantUserDistance() {
-        return restaurantUserDistance;
+    public Boolean getOpenNow() {
+        return openNow;
     }
 
-    public void setRestaurantUserDistance(double restaurantUserDistance) {
-        this.restaurantUserDistance = restaurantUserDistance;
+    public Location getLocation() {
+        return location;
     }
 
-    public String getRestaurantNote() {
-        return restaurantNote;
+    public int getDistanceCurrentUser() {
+        return distanceCurrentUser;
     }
 
-    public void setRestaurantNote(String restaurantNote) {
-        this.restaurantNote = restaurantNote;
+    //////// SETTERS ////////
+
+
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getRestaurantIcon() {
-        return restaurantIcon;
+    public void setRating(double rating) {
+        this.rating = rating;
     }
 
-    public void setRestaurantIcon(String restaurantIcon) {
-        this.restaurantIcon = restaurantIcon;
+    public void setPlaceId(String placeId) {
+        this.placeId = placeId;
     }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setDistanceCurrentUser(int distanceCurrentUser) {
+        this.distanceCurrentUser = distanceCurrentUser;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+
+        if (obj == null || obj.getClass() != getClass())
+        {
+            return false;
+        }
+
+        return Objects.equals(this.getPlaceId(),((com.francotte.go4lunch_opc.models.Restaurant) obj).getPlaceId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.getPlaceId());
+    }
+
 }
-
-

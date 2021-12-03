@@ -9,6 +9,7 @@ public class FavoriteRestaurant {
 
     public FavoriteRestaurant() {
     }
+
     public FavoriteRestaurant(String idPlace, String namePlace, String urlPlace) {
         this.idPlace = idPlace;
         this.namePlace = namePlace;
@@ -19,19 +20,24 @@ public class FavoriteRestaurant {
     public String getNamePlace() {
         return namePlace;
     }
+
     public String getIdPlace() {
         return idPlace;
     }
+
     public String getUrlPlace() {
         return urlPlace;
     }
+
     // --- SETTER --- //
     public void setNamePlace(String namePlace) {
         this.namePlace = namePlace;
     }
+
     public void setIdPlace(String idPlace) {
         this.idPlace = idPlace;
     }
+
     public void setUrlPlace(String urlPlace) {
         this.urlPlace = urlPlace;
     }

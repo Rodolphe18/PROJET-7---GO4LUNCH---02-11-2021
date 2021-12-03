@@ -24,23 +24,34 @@ public class UserWithoutPlaceId {
     public String getUserId() {
         return userId;
     }
+
     public String getUsername() {
         return username;
     }
+
     @Nullable
     public String getUrlPicture() {
         return urlPicture;
     }
-    public String getToken (){ return token; }
+
+    public String getToken() {
+        return token;
+    }
+
     //SETTER
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
+
     public void setUrlPicture(@Nullable String urlPicture) {
         this.urlPicture = urlPicture;
     }
-    public void setToken (String token){ this.token = token; }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.DetailRestaurantActivity"
+    tools:context=".ui.activities.DetailRestaurantActivity"
     tools:showIn="@layout/activity_details">
 
     <LinearLayout
@@ -22,11 +22,49 @@
             <TextView
                 android:id="@+id/details_activity_name_of_restaurant"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nom du resto"
                 android:textColor="@color/colorBlank"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="16dp" />
+
+
+            <ImageView
+                android:id="@+id/item_list_restaurant_star_1_image"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_star_2"
+                android:layout_marginLeft="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/details_activity_name_of_restaurant"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@+id/details_activity_name_of_restaurant"
+                app:layout_constraintTop_toTopOf="@+id/details_activity_name_of_restaurant" />
+
+            <ImageView
+                android:id="@+id/item_list_restaurant_star_2_image"
+                style="@style/item_list_restaurant_stars_2_3_image"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/details_activity_name_of_restaurant"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@+id/item_list_restaurant_star_1_image"
+                app:layout_constraintTop_toTopOf="@+id/details_activity_name_of_restaurant" />
+
+            <ImageView
+                android:id="@+id/item_list_restaurant_star_3_image"
+                style="@style/item_list_restaurant_stars_2_3_image"
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:contentDescription="@null"
+                app:layout_constraintBottom_toBottomOf="@+id/details_activity_name_of_restaurant"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@+id/item_list_restaurant_star_2_image"
+                app:layout_constraintTop_toTopOf="@+id/details_activity_name_of_restaurant" />
+
 
             <TextView
                 android:id="@+id/details_activity_information_of_restaurant"

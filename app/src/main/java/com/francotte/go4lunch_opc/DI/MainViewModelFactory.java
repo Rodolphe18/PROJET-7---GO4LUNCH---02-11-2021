@@ -13,14 +13,15 @@ import org.jetbrains.annotations.NotNull;
 public class MainViewModelFactory implements ViewModelProvider.Factory {
 
     private final Context context;
-    MainViewModelFactory(Context context){
-    this.context = context;
+
+    MainViewModelFactory(Context context) {
+        this.context = context;
     }
 
     @NotNull
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        if(modelClass.isAssignableFrom(MainViewModel.class)){
+        if (modelClass.isAssignableFrom(MainViewModel.class)) {
             return (T) new MainViewModel(context);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");

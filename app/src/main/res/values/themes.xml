@@ -14,4 +14,10 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <!-- Item Restaurant List Stars 2 and 3 Image -->
+    <style name="item_list_restaurant_stars_2_3_image">
+        <item name="android:src">@drawable/ic_star_2</item>
+        <item name="android:layout_marginEnd">4dp</item>
+    </style>
+
 </resources>

@@ -8,19 +8,19 @@
 
     <fragment
         android:id="@+id/navigation_map_view"
-        android:name="com.francotte.go4lunch_opc.ui.MapViewFragment"
+        android:name="com.francotte.go4lunch_opc.ui.fragments.MapViewFragment"
         android:label="Dashboard"
         tools:layout="@layout/fragment_map_view" />
 
     <fragment
         android:id="@+id/navigation_list_view"
-        android:name="com.francotte.go4lunch_opc.ui.ListViewFragment"
+        android:name="com.francotte.go4lunch_opc.ui.fragments.ListViewFragment"
         android:label="Home"
         tools:layout="@layout/fragment_list_view" />
 
     <fragment
         android:id="@+id/navigation_workmates"
-        android:name="com.francotte.go4lunch_opc.ui.WorkmatesFragment"
+        android:name="com.francotte.go4lunch_opc.ui.fragments.WorkmatesFragment"
         android:label="Notification"
         tools:layout="@layout/fragment_workmates" />
 

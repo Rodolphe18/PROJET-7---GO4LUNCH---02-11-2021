@@ -35,7 +35,7 @@ public interface GoogleMapPlacesService {
             .build();
 
     @GET("maps/api/place/autocomplete/json")
-    Call<PlaceAutoComplete> getPlaceAutoComplete(@Query("input") String input, @Query("type") String type, @Query("key") String API_KEY);
+    Call<PlaceAutoComplete> getPlaceAutoComplete(@Query("input") String input, @Query("type") String type, @Query("location") String location, @Query("radius") String radius,@Query("key") String API_KEY);
 
     Retrofit retrofitGetPlaceAutoComplete = new Retrofit.Builder()
             .baseUrl("https://maps.googleapis.com/")

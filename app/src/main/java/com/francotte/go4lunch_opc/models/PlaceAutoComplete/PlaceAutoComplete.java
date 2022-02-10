@@ -16,8 +16,6 @@ public class PlaceAutoComplete implements Serializable, Parcelable
 
 
     private List<Prediction> predictions = null;
-    @SerializedName("status")
-    @Expose
     private String status;
     public final static Creator<PlaceAutoComplete> CREATOR = new Creator<PlaceAutoComplete>() {
 

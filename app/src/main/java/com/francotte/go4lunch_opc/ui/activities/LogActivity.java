@@ -30,6 +30,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 public class LogActivity extends AppCompatActivity implements FirestoreCall.CallbackGetTokenAtCurrentUser {
 
     /**
@@ -49,6 +52,7 @@ public class LogActivity extends AppCompatActivity implements FirestoreCall.Call
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
+
 
         checkPermissionApp();
         init();
@@ -104,7 +108,7 @@ public class LogActivity extends AppCompatActivity implements FirestoreCall.Call
     @Override
     public void onSuccessGetCurrentToken(String token) {
         Log.d("LogActivity", "token: " + token);
-        if (this.getCurrentUser() != null) {
+      if (this.getCurrentUser() != null) {
             String urlPicture = (this.getCurrentUser().getPhotoUrl() != null) ? this.getCurrentUser().getPhotoUrl().toString() : null;
             String username = this.getCurrentUser().getDisplayName();
             String uid = this.getCurrentUser().getUid();
@@ -120,7 +124,7 @@ public class LogActivity extends AppCompatActivity implements FirestoreCall.Call
                     Toast.makeText(getApplicationContext(), getString(R.string.connection_error_unknown), Toast.LENGTH_LONG).show();
                 }
             });
-        }
+       }
     }
 
     @Override

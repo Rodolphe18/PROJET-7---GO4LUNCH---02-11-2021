@@ -12,18 +12,22 @@ import java.util.List;
 
 public class AuthenticationServiceHelper implements AuthenticationService {
 
+    private final static int RC_SIGN = 123;
+
     @Override
     public Intent getAuthUIOfSignWithFacebook() {
-        List<AuthUI.IdpConfig> providers = Collections.singletonList(
+       List<AuthUI.IdpConfig> providers = Collections.singletonList(
                 new AuthUI.IdpConfig.FacebookBuilder()
                         .build());
 
-        return (AuthUI.getInstance().createSignInIntentBuilder()
+        return (AuthUI.getInstance()
+                .createSignInIntentBuilder()
                 .setTheme(R.style.AppTheme)
                 .setAvailableProviders(providers)
                 .setIsSmartLockEnabled(false, true)
                 .setLogo(R.mipmap.ic_launcher_logo)
                 .build());
+
     }
 
     @Override

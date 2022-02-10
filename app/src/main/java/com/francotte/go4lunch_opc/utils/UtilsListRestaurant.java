@@ -43,21 +43,4 @@ public class UtilsListRestaurant {
 
     }
 
-    /**
-     * Update the attribute DistanceCurrentUser for each restaurant
-     */
-    public static void updateDistanceToCurrentLocation(Location currentLocation, List<Result> restaurantList)
-    {
-        Location restaurantLocation = new Location("fusedLocationProvider");
-        int size = restaurantList.size();
-        for (int i = 0; i < size; i++)
-        {
-            //Get the restaurant's location
-            restaurantLocation.setLatitude(restaurantList.get(i).getLocation().getLat());
-            restaurantLocation.setLongitude(restaurantList.get(i).getLocation().getLng());
-            //Get the distance between currentLocation and restaurantLocation
-            int distanceLocation = (int) currentLocation.distanceTo(restaurantLocation);
-            restaurantList.get(i).setDistanceCurrentUser(distanceLocation);
-        }
-    }
 }

@@ -42,7 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class DetailRestaurantActivity extends AppCompatActivity implements GoogleMapPlacesCall.GetDetailOfPlaceCallbacks, View.OnClickListener, FirestoreCall.CallbackFirestore, FirestoreCall.CallbackFirestoreFavorite {
+public class DetailRestaurantActivity extends AppCompatActivity implements GoogleMapPlacesCall.GetDetailOfPlaceCallbacks, View.OnClickListener, FirestoreCall.CallbackFirestoreUsers, FirestoreCall.CallbackFirestoreFavorite {
 
     /**
      * ----UI ---

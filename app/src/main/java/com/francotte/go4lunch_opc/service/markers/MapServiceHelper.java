@@ -23,5 +23,4 @@ public class MapServiceHelper implements MapService {
         googleMap.addMarker(markerOptions);
 
          }
-
 }

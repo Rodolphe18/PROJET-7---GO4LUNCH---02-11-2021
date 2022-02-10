@@ -37,6 +37,7 @@ import com.francotte.go4lunch_opc.repositories.user_repository.FirestoreCall;
 import com.francotte.go4lunch_opc.service.markers.MapService;
 import com.francotte.go4lunch_opc.ui.activities.DetailRestaurantActivity;
 import com.francotte.go4lunch_opc.ui.activities.MainActivity;
+import com.francotte.go4lunch_opc.utils.LocationRepository;
 import com.francotte.go4lunch_opc.viewmodel.MainViewModel;
 import com.francotte.go4lunch_opc.DI.MainViewModelFactory;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -73,7 +74,7 @@ import java.util.Map;
 import com.francotte.go4lunch_opc.repositories.google_api.GoogleMapPlacesCall;
 
 
-public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.CallbacksFetchNearbyPlace, FirestoreCall.CallbackFirestore {
+public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.CallbacksFetchNearbyPlace, FirestoreCall.CallbackFirestoreUsers {
 
 
     private static final String TAG = "MapActivity";
@@ -83,6 +84,7 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
     private Boolean mLocationPermissionGranted = false;
     //MAPS
     private GoogleMap map;
+    private LocationRepository locationRepository;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private MapService mapService;
     //VIEW MODEL
@@ -96,7 +98,6 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
                 return;
             }
             for (android.location.Location location : locationResult.getLocations()) {
-                Log.d(TAG, "onLocationResult: " + location.toString());
             }
         }
     };
@@ -106,7 +107,6 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_map_view, container, false);
-        getLocationPermission();
         configureToolbar(root);
         configureViewModel();
         getAllUsers();
@@ -141,26 +141,20 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
     // Init Place
     private void init() {
         mapService = DI.getMapApiService();
-        // Place init
-        String API_KEY_PLACE = "AIzaSyDDNE6N-Ltg6BZQTyLt5Rfcs6ogJO0ZBGA";
-        Places.initialize(getActivity().getApplicationContext(), API_KEY_PLACE);
     }
 
     private void initMap() {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
         SupportMapFragment mapsFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_view_fragment);
         mapsFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(final GoogleMap googleMap) {
                 map = googleMap;
 
-                getUserCurrentLocation();
+            getUserCurrentLocation();
 
-                map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            map.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                     @Override
                     public boolean onMarkerClick(@NonNull Marker marker) {
-                     //   String markerTitle = marker.getTitle();
-
                         Intent i = new Intent(getContext(), DetailRestaurantActivity.class);
                         i.putExtra("place_id", marker.getSnippet());
                         startActivity(i);
@@ -171,77 +165,44 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
         });
     }
 
+    private LocationRepository getUserCurrentLocation() {
 
-    private void getUserCurrentLocation () {
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
-        locationRequest = LocationRequest.create();
-        locationRequest.setInterval(100000);
-        locationRequest.setFastestInterval(2000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        checkSettingsAndStartLocationUpdates();
+        locationRepository = new LocationRepository(getContext());
+        if (locationRepository.canGetLocation()) {
+            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+            locationRequest = LocationRequest.create();
+            locationRequest.setInterval(10000000);
+            locationRequest.setFastestInterval(2000);
+            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(@NonNull LocationResult locationResult) {
-                super.onLocationResult(locationResult);
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 12);
-                    map.moveCamera(cameraUpdate);
-                    callNearbyPlacesAPI(location.getLatitude() + " " + location.getLongitude());
-                }
-            }
-        };
+            checkSettingsAndStartLocationUpdates();
 
-    }
-
-
-    private void getLocationPermission() {
-        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION};
-        if (ContextCompat.checkSelfPermission(getContext(), FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            if (ContextCompat.checkSelfPermission(getContext(), COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mLocationPermissionGranted = true;
-                initMap();
-            } else {
-                ActivityCompat.requestPermissions(getActivity(), permissions, LOCATION_PERMISSION_REQUEST_CODE);
-            }
-        } else {
-            ActivityCompat.requestPermissions(getActivity(), permissions, LOCATION_PERMISSION_REQUEST_CODE);
-        }
-    }
-
-
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        mLocationPermissionGranted = false;
-
-        switch (requestCode) {
-            case LOCATION_PERMISSION_REQUEST_CODE: {
-                if (grantResults.length > 0) {
-                    for (int i = 0; i < grantResults.length; i++) {
-                        if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                            mLocationPermissionGranted = false;
-                            return;
-                        }
+            locationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(@NonNull LocationResult locationResult) {
+                    super.onLocationResult(locationResult);
+                    if (locationResult == null) {
+                        return;
                     }
-                    mLocationPermissionGranted = true;
-                    // Initialize map
-                    initMap();
+                    for (Location location : locationResult.getLocations()) {
+                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 12);
+                        map.moveCamera(cameraUpdate);
+                        callNearbyPlacesAPI(location.getLatitude() + " " + location.getLongitude());
+                    }
                 }
-            }
+            };
+        } else {
+            locationRepository.showSettingsAlert();
         }
+        return locationRepository;
     }
 
 
-    private void callNearbyPlacesAPI(String location) {
-        viewModel.getNearbyPlaces(this, location);
-    }
 
     private void checkSettingsAndStartLocationUpdates() {
         LocationSettingsRequest request = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest).build();
         SettingsClient client = LocationServices.getSettingsClient(getContext());
+
         Task<LocationSettingsResponse> locationSettingsResponseTask = client.checkLocationSettings(request);
         locationSettingsResponseTask.addOnSuccessListener(new OnSuccessListener<LocationSettingsResponse>() {
             @Override
@@ -273,12 +234,16 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
     }
 
 
+    private void callNearbyPlacesAPI(String location) {
+        viewModel.getNearbyPlaces(this, location);
+    }
+
+
     @Override
     public void onResponseFetchNearbyPlace(@Nullable ResultsPlaces places) {
         if (places.getResults() != null) {
             map.clear();
             List<Result> candidatesPlaces = places.getResults();
-
             for (int i = 0; i < candidatesPlaces.size(); i++) {
                 LatLng latLng = new LatLng(candidatesPlaces.get(i).getGeometry().getLocation().getLat(), candidatesPlaces.get(i).getGeometry().getLocation().getLng());
                 mapService.addMarker(map, latLng, candidatesPlaces.get(i).getName(), getActivity(), isPlaceIdBusy(candidatesPlaces.get(i).getPlace_id(), this.users), candidatesPlaces.get(i).getPlace_id());
@@ -292,6 +257,10 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
         Log.e("MapsViewFragment", "failure" + t.getMessage());
     }
 
+    private void getAllUsers() {
+        FirestoreCall.getAllUsers(this);
+        FirestoreCall.setUpdateDataRealTime(this);
+    }
 
     @Override
     public void onSuccessGetUsers(List<User> users) {
@@ -301,7 +270,6 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
 
     @Override
     public void onFailureGetUsers(Exception e) {
-
     }
 
 
@@ -310,15 +278,9 @@ public class MapViewFragment extends Fragment implements GoogleMapPlacesCall.Cal
             if (placeId.equals(user.getLunchPlaceID())) {
                 return true;
             }
-
         }
-
         return false;
     }
 
-    private void getAllUsers() {
-        FirestoreCall.getAllUsers(this);
-        FirestoreCall.setUpdateDataRealTime(this);
-    }
 
 }

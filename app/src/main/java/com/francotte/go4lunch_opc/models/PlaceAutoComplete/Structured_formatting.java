@@ -13,14 +13,8 @@ import com.google.gson.annotations.SerializedName;
 public class Structured_formatting implements Serializable, Parcelable
 {
 
-    @SerializedName("main_text")
-    @Expose
     private String main_text;
-    @SerializedName("main_text_matched_substrings")
-    @Expose
     private List<Main_text_matched_substring> main_text_matched_substrings = null;
-    @SerializedName("secondary_text")
-    @Expose
     private String secondary_text;
     public final static Creator<Structured_formatting> CREATOR = new Creator<Structured_formatting>() {
 

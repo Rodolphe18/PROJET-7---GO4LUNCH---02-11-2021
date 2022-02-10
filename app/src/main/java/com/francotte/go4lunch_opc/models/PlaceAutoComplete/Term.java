@@ -12,11 +12,8 @@ import com.google.gson.annotations.SerializedName;
 public class Term implements Serializable, Parcelable
 {
 
-    @SerializedName("offset")
-    @Expose
+
     private Integer offset;
-    @SerializedName("value")
-    @Expose
     private String value;
     public final static Creator<Term> CREATOR = new Creator<Term>() {
 

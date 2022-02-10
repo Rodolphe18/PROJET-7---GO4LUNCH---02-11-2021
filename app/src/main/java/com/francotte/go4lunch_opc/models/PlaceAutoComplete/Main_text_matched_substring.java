@@ -8,7 +8,6 @@ import android.os.Parcelable;
 public class Main_text_matched_substring implements Serializable, Parcelable
 {
 
-
     private Integer length;
     private Integer offset;
     public final static Creator<Main_text_matched_substring> CREATOR = new Creator<Main_text_matched_substring>() {

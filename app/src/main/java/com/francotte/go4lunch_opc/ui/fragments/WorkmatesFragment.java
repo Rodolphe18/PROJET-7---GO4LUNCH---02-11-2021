@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WorkmatesFragment extends Fragment implements FirestoreCall.CallbackFirestore, FirestoreCall.CallbackFirestoreUser {
+public class WorkmatesFragment extends Fragment implements FirestoreCall.CallbackFirestoreUsers, FirestoreCall.CallbackFirestoreUser {
 
     // ADAPTER
     private AdaptorListViewWorkmates mAdapterListView;

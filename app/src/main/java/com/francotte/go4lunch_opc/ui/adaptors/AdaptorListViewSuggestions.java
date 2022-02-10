@@ -9,6 +9,8 @@ import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.francotte.go4lunch_opc.R;
 import com.francotte.go4lunch_opc.models.PlaceAutoComplete.Prediction;
 import com.francotte.go4lunch_opc.ui.activities.DetailRestaurantActivity;
+import com.google.android.libraries.maps.model.LatLng;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,13 +53,13 @@ public class AdaptorListViewSuggestions extends RecyclerView.Adapter<AdaptorList
         return predictions.size();
     }
 
+
     // To update data of this adapter
     public void updateSuggestions(List<Prediction> predictions, String input) {
         this.input = input;
         this.predictions = predictions;
         notifyDataSetChanged();
     }
-
 
     protected static class viewHolderSuggestion extends RecyclerView.ViewHolder {
 
@@ -79,6 +83,7 @@ public class AdaptorListViewSuggestions extends RecyclerView.Adapter<AdaptorList
             sb.setSpan(iss, input.length(), prediction.getDescription().length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
 
             textSuggestion.setText(sb);
+
             item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -90,5 +95,3 @@ public class AdaptorListViewSuggestions extends RecyclerView.Adapter<AdaptorList
         }
     }
 }
-
-

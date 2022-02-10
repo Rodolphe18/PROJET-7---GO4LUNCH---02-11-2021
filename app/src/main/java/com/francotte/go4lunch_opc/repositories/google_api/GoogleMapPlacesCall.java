@@ -1,6 +1,7 @@
 package com.francotte.go4lunch_opc.repositories.google_api;
 
 
+import android.location.Location;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -50,7 +51,6 @@ public class GoogleMapPlacesCall {
      * --- METHOD ---
      */
     public static void fetchNearbyPlaces(CallbacksFetchNearbyPlace callbacksFetchNearbyPlace, String location) {
-        final WeakReference<CallbacksFetchNearbyPlace> cbRef = new WeakReference<>(callbacksFetchNearbyPlace);
 
         GoogleMapPlacesService service = GoogleMapPlacesService.retrofitGetGoogleMapPlaces.create(GoogleMapPlacesService.class);
 
@@ -59,51 +59,46 @@ public class GoogleMapPlacesCall {
         call.enqueue(new Callback<ResultsPlaces>() {
             @Override
             public void onResponse(@NotNull Call<ResultsPlaces> call, @NotNull Response<ResultsPlaces> response) {
-                if (cbRef.get() != null) {
-                    cbRef.get().onResponseFetchNearbyPlace(response.body());
-                }
+                callbacksFetchNearbyPlace.onResponseFetchNearbyPlace(response.body());
             }
 
 
             @Override
             public void onFailure(@NotNull Call<ResultsPlaces> call, @NotNull Throwable t) {
-                if (cbRef.get() != null) {
-                    cbRef.get().onFailureFetchNearbyPlace(t);
-                }
+                callbacksFetchNearbyPlace.onFailureFetchNearbyPlace(t);
             }
         });
     }
 
-    public static void getDetailOfAPlace(final GetDetailOfPlaceCallbacks callbacks, String place_id) {
+    public static void getDetailOfAPlace(final GetDetailOfPlaceCallbacks callbacksGetDetailOfAPlace, String place_id) {
         GoogleMapPlacesService service = GoogleMapPlacesService.retrofitGetPlaceDetails.create(GoogleMapPlacesService.class);
 
         Call<PlaceDetails> call = service.getPlaceDetails(place_id, API_KEY);
         call.enqueue(new Callback<PlaceDetails>() {
             @Override
             public void onResponse(@NotNull Call<PlaceDetails> call, @NotNull Response<PlaceDetails> response) {
-                Log.d("CALL", "REPONSE CALL DETAIL PLACE" + response.body());
-                callbacks.onResponseGetDetailOfPlace(response.body());
+                callbacksGetDetailOfAPlace.onResponseGetDetailOfPlace(response.body());
             }
 
             @Override
             public void onFailure(@NotNull Call<PlaceDetails> call, @NotNull Throwable t) {
-                callbacks.onFailureGetDetailOfPlace(t);
+                callbacksGetDetailOfAPlace.onFailureGetDetailOfPlace(t);
             }
         });
     }
 
-    public static void getAllPredictionOfSearchPlace(final GetAllPredictionOfSearchPlace callback, final String input) {
+    public static void getAllPredictionOfSearchPlace(final GetAllPredictionOfSearchPlace callbacksGetAllPredictions, final String input, final Location location) {
         GoogleMapPlacesService service = GoogleMapPlacesService.retrofitGetPlaceAutoComplete.create(GoogleMapPlacesService.class);
-        Call<PlaceAutoComplete> call = service.getPlaceAutoComplete(input, "establishment", API_KEY);
+        Call<PlaceAutoComplete> call = service.getPlaceAutoComplete(input, "establishment", location.getLatitude() + "," + location.getLongitude(), "1300", API_KEY);
         call.enqueue(new Callback<PlaceAutoComplete>() {
             @Override
             public void onResponse(@NotNull Call<PlaceAutoComplete> call, @NotNull Response<PlaceAutoComplete> response) {
-                callback.onResponseGetAllPredictionsOfSearchPlace(response.body(), input);
+                callbacksGetAllPredictions.onResponseGetAllPredictionsOfSearchPlace(response.body(), input);
             }
 
             @Override
             public void onFailure(@NotNull Call<PlaceAutoComplete> call, @NotNull Throwable t) {
-                callback.onFailureGetAllPredictionsOfSearchPlace(t);
+                callbacksGetAllPredictions.onFailureGetAllPredictionsOfSearchPlace(t);
             }
         });
     }

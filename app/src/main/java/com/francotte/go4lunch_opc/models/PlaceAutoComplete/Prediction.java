@@ -14,26 +14,13 @@ import com.google.gson.annotations.SerializedName;
 public class Prediction implements Serializable, Parcelable
 {
 
-    @SerializedName("description")
-    @Expose
+
     private String description;
-    @SerializedName("matched_substrings")
-    @Expose
     private List<Matched_substring> matched_substrings = null;
-    @SerializedName("place_id")
-    @Expose
     private String place_id;
-    @SerializedName("reference")
-    @Expose
     private String reference;
-    @SerializedName("structured_formatting")
-    @Expose
     private Structured_formatting structured_formatting;
-    @SerializedName("terms")
-    @Expose
     private List<Term> terms = null;
-    @SerializedName("types")
-    @Expose
     private List<String> types = null;
     public final static Creator<Prediction> CREATOR = new Creator<Prediction>() {
 

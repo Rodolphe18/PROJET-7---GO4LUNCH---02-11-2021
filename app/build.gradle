@@ -33,7 +33,7 @@ dependencies {
     def multidex_version = "2.0.1"
     implementation "androidx.multidex:multidex:$multidex_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.facebook.android:facebook-android-sdk:5.13.0'
+
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
@@ -74,7 +74,13 @@ dependencies {
     implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.android.libraries.places:places:2.4.0'
 
-    //MAPS
+    //LOGIN FACEBOOK
+    implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
+    //LOGIN TWITTER
+    implementation 'com.twitter.sdk.android:twitter:3.1.1'
+
+    //MAPS 
     implementation 'com.google.android.libraries.maps:maps:3.1.0-beta'
     implementation 'com.google.android.gms:play-services-location:18.0.0'
 

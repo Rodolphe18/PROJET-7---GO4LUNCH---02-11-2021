@@ -10,12 +10,14 @@ import android.location.Location;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.firebase.ui.auth.AuthUI;
-import com.francotte.go4lunch_opc.models.User;
+import com.francotte.go4lunch_opc.models.PlaceAutoComplete.Prediction;
 import com.francotte.go4lunch_opc.repositories.user_repository.UserHelper;
 import com.francotte.go4lunch_opc.ui.activities.LogActivity;
+import com.francotte.go4lunch_opc.utils.LocationRepository;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.francotte.go4lunch_opc.repositories.google_api.GoogleMapPlacesCall;
 
@@ -33,11 +37,15 @@ public class MainViewModel extends ViewModel {
     private static final int DELETE_USER_TASK = 20;
 
     final FusedLocationProviderClient fusedLocationProviderClient;
-    private final WeakReference<Context> context;
+    private final WeakReference<Context> contextWeakReference;
+    private Context context;
+    private LocationRepository locationRepository;
+
 
     public MainViewModel(Context context) {
-        this.context = new WeakReference<>(context);
+        this.contextWeakReference = new WeakReference<>(context);
         this.fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context);
+
     }
 
     // GET CURRENT USER
@@ -87,17 +95,26 @@ public class MainViewModel extends ViewModel {
     }
 
     //REQUEST API AUTOCOMPLETE PLACE
-    public void getPlaceAutoComplete(GoogleMapPlacesCall.GetAllPredictionOfSearchPlace callbacksGetPlaceAutoComplete, String input) {
-        GoogleMapPlacesCall.getAllPredictionOfSearchPlace(callbacksGetPlaceAutoComplete, input);
+    public void getPlaceAutoComplete(GoogleMapPlacesCall.GetAllPredictionOfSearchPlace callbacksGetPlaceAutoComplete, String input, Location location) {
+        GoogleMapPlacesCall.getAllPredictionOfSearchPlace(callbacksGetPlaceAutoComplete, input, location);
     }
 
 
-    //GET LOCATION
+    //GET LAST LOCATION
     public Task<Location> getUserLastLocation() {
-        if (ActivityCompat.checkSelfPermission(context.get(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context.get(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(contextWeakReference.get(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(contextWeakReference.get(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return null;
         }
         return fusedLocationProviderClient.getLastLocation();
     }
 
+    // GET CURRENT LOCATION
+    private LocationRepository getUserCurrentLocation() {
+        locationRepository = new LocationRepository(context);
+        if (locationRepository.canGetLocation()) {
+        } else {
+           locationRepository.showSettingsAlert();
+        }
+        return locationRepository;
+    }
 }

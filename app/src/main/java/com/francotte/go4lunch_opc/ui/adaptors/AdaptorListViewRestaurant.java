@@ -2,6 +2,7 @@ package com.francotte.go4lunch_opc.ui.adaptors;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,14 +10,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.francotte.go4lunch_opc.DI.InjectionMain;
+import com.francotte.go4lunch_opc.DI.MainViewModelFactory;
 import com.francotte.go4lunch_opc.R;
 import com.francotte.go4lunch_opc.models.NearbySearch.Result;
+import com.francotte.go4lunch_opc.models.User;
+import com.francotte.go4lunch_opc.repositories.user_repository.UserHelper;
 import com.francotte.go4lunch_opc.ui.activities.DetailRestaurantActivity;
+import com.francotte.go4lunch_opc.utils.LocationRepository;
 import com.francotte.go4lunch_opc.utils.UtilsListRestaurant;
 import com.francotte.go4lunch_opc.viewmodel.MainViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -25,6 +34,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class AdaptorListViewRestaurant extends RecyclerView.Adapter<AdaptorListViewRestaurant.RestaurantViewHolder> {
 
@@ -39,7 +49,7 @@ public class AdaptorListViewRestaurant extends RecyclerView.Adapter<AdaptorListV
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_restaurant, parent, false);
-        return new RestaurantViewHolder(view, map);
+        return new RestaurantViewHolder(view, map, context);
     }
 
     @Override
@@ -67,27 +77,30 @@ public class AdaptorListViewRestaurant extends RecyclerView.Adapter<AdaptorListV
         private final TextView name;
         private final TextView address;
         private final TextView hour;
-        private final TextView distance;
+        private final TextView distanceRestaurant;
         private final TextView numberWorkmates;
         private final ImageView star1;
         private final ImageView star2;
         private final ImageView star3;
 
+        private Context context;
 
+        private LocationRepository locationRepository;
 
         private final Map<String, Integer> map;
 
         private final String EXTRA_NAME = "place_id";
 
-        public RestaurantViewHolder(View itemView, Map<String, Integer> map) {
+        public RestaurantViewHolder(View itemView, Map<String, Integer> map, Context context) {
             super(itemView);
             this.map = map;
+            this.context = context;
             item = itemView.findViewById(R.id.item_restaurant);
             name = itemView.findViewById(R.id.item_restaurant_name);
             icon = itemView.findViewById(R.id.item_restaurant_icon);
             address = itemView.findViewById(R.id.item_restaurant_address);
             hour = itemView.findViewById(R.id.item_restaurant_open_hour);
-            distance = itemView.findViewById(R.id.item_restaurant_distance);
+            distanceRestaurant = itemView.findViewById(R.id.item_restaurant_distance);
             numberWorkmates = itemView.findViewById(R.id.item_restaurant_nb_workmate);
             star1 = itemView.findViewById(R.id.item_list_restaurant_star_1_image);
             star2 = itemView.findViewById(R.id.item_list_restaurant_star_2_image);
@@ -102,6 +115,7 @@ public class AdaptorListViewRestaurant extends RecyclerView.Adapter<AdaptorListV
             if (place.getOpening_hours() != null) {
 
                 Calendar calendar = Calendar.getInstance();
+
                 int currentDay = calendar.get(Calendar.DAY_OF_WEEK);
 
                 String openingHour = "";
@@ -117,12 +131,24 @@ public class AdaptorListViewRestaurant extends RecyclerView.Adapter<AdaptorListV
                 openingHour += " " + isOpen;
                 hour.setText(openingHour);
 
-                UtilsListRestaurant.updateRating(star1, star2, star3, place);
+                // NOMBRE DE STARS
+
+             //   UtilsListRestaurant.updateRating(star1, star2, star3, place);
 
                 // DISTANCE DE l'UTILISATEUR PAR RAPPORT AU RESTAURANT
 
-                String distanceString = place.getDistanceCurrentUser() + "m";
-                distance.setText(distanceString);
+                float distance;
+                float results[] = new float[10];
+                double restaurantLat = Objects.requireNonNull(place.getGeometry().getLocation().getLat());
+                double restaurantLng = Objects.requireNonNull(place.getGeometry().getLocation().getLng());
+                double myLatitude = getLocation().getLatitude();
+                double myLongitude = getLocation().getLongitude();
+                Location.distanceBetween(myLatitude, myLongitude, restaurantLat, restaurantLng, results);
+                distance = results[0];
+                String dist = Math.round(distance) + "m";
+                distanceRestaurant.setText(dist);
+
+
 
 
             if (place.getPhotos() != null && place.getPhotos().size() > 0) {
@@ -136,7 +162,7 @@ public class AdaptorListViewRestaurant extends RecyclerView.Adapter<AdaptorListV
             }
 
             item.setOnClickListener(new View.OnClickListener() {
-                @Override
+                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), DetailRestaurantActivity.class);
                     intent.putExtra(EXTRA_NAME, place.getPlace_id());
@@ -151,5 +177,16 @@ public class AdaptorListViewRestaurant extends RecyclerView.Adapter<AdaptorListV
             numberWorkmates.setText("(" + nbWorkmates + ")");
         }
     }
+
+
+        private LocationRepository getLocation() {
+            locationRepository = new LocationRepository(context);
+            if (locationRepository.canGetLocation()) {
+            } else {
+                locationRepository.showSettingsAlert();
+            }
+            return locationRepository;
+        }
+
 }
 }

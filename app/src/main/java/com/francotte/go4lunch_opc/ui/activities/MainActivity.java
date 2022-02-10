@@ -1,6 +1,7 @@
 package com.francotte.go4lunch_opc.ui.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,12 +33,15 @@ import com.bumptech.glide.request.RequestOptions;
 import com.francotte.go4lunch_opc.DI.InjectionMain;
 import com.francotte.go4lunch_opc.DI.MainViewModelFactory;
 import com.francotte.go4lunch_opc.R;
+import com.francotte.go4lunch_opc.models.NearbySearch.ResultsPlaces;
 import com.francotte.go4lunch_opc.repositories.user_repository.FirestoreCall;
 import com.francotte.go4lunch_opc.models.PlaceAutoComplete.PlaceAutoComplete;
 import com.francotte.go4lunch_opc.models.User;
 import com.francotte.go4lunch_opc.repositories.google_api.GoogleMapPlacesCall;
 import com.francotte.go4lunch_opc.ui.adaptors.AdaptorListViewSuggestions;
 import com.francotte.go4lunch_opc.viewmodel.MainViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -122,13 +127,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     // Send request of get Suggestion Place
-    private void searchPredictionQueryTextChange(String value) {
-        GoogleMapPlacesCall.getAllPredictionOfSearchPlace(this, value);
+    private void searchPredictionQueryTextChange(String value, Location location) {
+        viewModel.getPlaceAutoComplete(this, value, location);
     }
 
     // Configure the sending notification with AlarmManager
     private void configureNotificationSend() {
-       // ConfigureAlarmNotify.configureAlarmManager(this);
+      // ConfigureAlarmNotify.configureAlarmManager(this);
     }
 
     // Get current user of Firebase
@@ -179,12 +184,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             @Override
             public boolean onQueryTextChange(String s) {
-                searchPredictionQueryTextChange(s);
-                return false;
+                Task<Location> locationTask = viewModel.getUserLastLocation();
+
+                locationTask.addOnSuccessListener(new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+
+                        searchPredictionQueryTextChange(s, location);
+                        ;
+                    }
+                });
+                return true;
             }
         });
         return true;
     }
+
+
 
 
     // Response to get object current user - call by onNavigationItemSelected, selected start DetailActivity with placeID of User in extras

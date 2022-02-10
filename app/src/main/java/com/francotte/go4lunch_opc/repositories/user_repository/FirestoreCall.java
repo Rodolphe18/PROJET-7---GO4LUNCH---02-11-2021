@@ -36,7 +36,7 @@ public class FirestoreCall {
     /**
      * --- CALLBACK ---
      */
-    public interface CallbackFirestore {
+    public interface CallbackFirestoreUsers {
         void onSuccessGetUsers(List<User> users);
 
         void onFailureGetUsers(Exception e);
@@ -148,7 +148,7 @@ public class FirestoreCall {
                 });
     }
 
-    public static void getAllUsers(final CallbackFirestore callback) {
+    public static void getAllUsers(final CallbackFirestoreUsers callback) {
 
         UserHelper.getAllUsers()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -170,7 +170,7 @@ public class FirestoreCall {
                 });
     }
 
-    public static void getUsersOfAPlace(final CallbackFirestore callback, final String placeID) {
+    public static void getUsersOfAPlace(final CallbackFirestoreUsers callback, final String placeID) {
 
         UserHelper.getAllUsersByPlaceId(placeID)
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -212,7 +212,7 @@ public class FirestoreCall {
                 });
     }
 
-    public static void setUpdateDataRealTime(final CallbackFirestore callback) {
+    public static void setUpdateDataRealTime(final CallbackFirestoreUsers callback) {
         UserHelper.getUsersCollection().addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot querySnapshot, @Nullable FirebaseFirestoreException e) {

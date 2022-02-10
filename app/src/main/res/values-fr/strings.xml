@@ -1,0 +1,73 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="app_name">Go4Lunch_OPC</string>
+    <!-- LOG ACTIVITY -->
+    <string name="sub_title_log_activity">Trouve un restaurant et invite tes collègues à déjeuner</string>
+    <string name="sign_with_fb_log_activity">Se connecter avec Facebook</string>
+    <string name="sign_with_google_log_activity">Se connecter avec Google</string>
+    <string name="sign_with_twitter_log_activity">Se connecter avec Twitter</string>
+
+    <!-- FACEBOOK PURPOSE -->
+    <string name="facebook_application_id">243355614384710</string>
+    <string name="facebook_login_protocol_scheme">fb243355614384710</string>
+
+
+    <!-- SETTINGS ACTIVITY -->
+    <string name="pop_message_delete_account">Etes vous sur de vouloir supprimer ce compte ?</string>
+    <string name="positive_answer">Oui</string>
+    <string name="negative_answer">Non</string>
+
+    <string name="title_activity_details">Activité Détail</string>
+    <string name="title_activity_main">Activité principale</string>
+
+    <string name="title_Map_View">Carte</string>
+    <string name="title_List_View">Restaurants</string>
+    <string name="title_Workmates">Collègues</string>
+
+    <string name="navigation_drawer_open">Ouvrir le navigation drawer</string>
+    <string name="navigation_drawer_close">Fermer le navigation drawer</string>
+
+    <!-- CONNECTION -->
+    <string name="connection_success">Connexion réussie </string>
+    <string name="connection_error_canceled">Erreur</string>
+    <string name="connection_error_no_internet">Erreur pas de réseau internet</string>
+    <string name="connection_error_unknown">Erreur inconnue</string>
+    <!--ALERT MESSAGE-->
+    <string name="alert_message_no_gps">Votre GPS semble désactiver, souhaitez vous l\'activer ? </string>
+    <!--NAV MENU-->
+    <string name="nav_menu_your_lunch">Votre déjeuner</string>
+    <string name="nav_menu_settings">Réglages</string>
+    <string name="nav_menu_logout">Se déconnecter</string>
+    <!--DETAIL ACTIVITY-->
+    <string name="detail_activity_button_call">APPEL</string>
+    <string name="detail_activity_button_like">J\'AIME</string>
+    <string name="detail_activity_button_website">SITE INTERNET</string>
+    <string name="place_opening">Ouvert</string>
+    <string name="place_closed">Fermé</string>
+    <!--SETTINGS ACTIVITY-->
+    <string name="settings_activity_text_notification">Notification</string>
+    <string name="settings_activity_text_account">Compte</string>
+    <string name="settings_activity_button_delete_account">Supprimer le compte</string>
+    <!--MAIN ACTIVITY-->
+    <string name="main_activity_title">J\'ai faim !</string>
+    <string name="main_activity_title_workmates">Collègues disponibles</string>
+    <string name="alert_msg_today_eat">Aujourd\'hui vous déjeuner chez </string>
+    <string name="item_is_eating"> déjeune chez </string>
+    <string name="joined_state_workmates"> se joint à vous !</string>
+    <string name="not_decided_state_workmates"> n\'a pas fait son choix</string>
+    <string name="alert_not_again_choose">vous n\' avez pas encore décidé où vous déjeunerez</string>
+    <string name="no_restaurant">pas de restaurant à proximité</string>
+    <string name="notification_title">Go4Lunch, nouvelle notification !</string>
+    <string name="default_notification_channel_id">messages de notification</string>
+    <string name="messages">MESSAGES</string>
+    <string name="favorite_lunch">FAVORIS</string>
+    <string name="favorite_activity_title">Mes Favoris</string>
+    <string name="error_loading_firebase">Téléchargement des données , verifier votre connexion</string>
+    <string name="alert_message_no_internet">pas de réseau internet, activer internet svp </string>
+    <string name="notification_part_1_hey">Bonjour "</string>
+    <string name="notification_part_2_eating">, aujourd\'hui vous mangez </string>
+    <string name="notification_part_3_with">avec</string>
+    <string name="notification_not_deceixded">Vous n\'avez pas encore décidé où vous déjeunerez !</string>
+
+
+</resources>

@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ListViewFragment extends Fragment implements GoogleMapPlacesCall.CallbacksFetchNearbyPlace, FirestoreCall.CallbackFirestore {
+public class ListViewFragment extends Fragment implements GoogleMapPlacesCall.CallbacksFetchNearbyPlace, FirestoreCall.CallbackFirestoreUsers {
 
     //UI
     private TextView mTextNoRestaurant;
@@ -50,20 +50,14 @@ public class ListViewFragment extends Fragment implements GoogleMapPlacesCall.Ca
     //MAPS USER, String = idPlace, Integer = nb user jointed
     private final Map<String, Integer> mapUserByPlaceID = new HashMap<>();
 
-   // private List<Result> restaurantListFromPlaces;
+   private List<Result> restaurantListFromPlaces;
 
-   //private Location currentLocation;
+   private Location currentLocation;
 
     public ListViewFragment() {
     }
 
- // private ListViewFragment(Location location) {
-   //    this.currentLocation = location;
-  // }
 
-  // public static ListViewFragment newInstance(Location location) {
-    //    return new ListViewFragment(location);
-   // }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -116,7 +110,7 @@ public class ListViewFragment extends Fragment implements GoogleMapPlacesCall.Ca
         FirestoreCall.setUpdateDataRealTime(this);
     }
 
-    // Get current location of and call Api Place with current location
+    // Get current location of user and call Api Place with current location
     private void initPlaces() {
         Task<Location> locationTask = viewModel.getUserLastLocation();
 
@@ -160,22 +154,6 @@ public class ListViewFragment extends Fragment implements GoogleMapPlacesCall.Ca
                 mTextNoRestaurant.setEnabled(true);
             }
             List<Result> restaurantList = places.getResults();
-
-        //    UtilsListRestaurant.updateDistanceToCurrentLocation(currentLocation, restaurantList);
-
-
-           // Location restaurantLocation = new Location("fusedLocationProvider");
-           // int size = restaurantList.size();
-           // for (int i = 0; i < size; i++)
-           // {
-                //Get the restaurant's location
-              //  currentLocation = viewModel.getUserLastLocation();
-               // restaurantLocation.setLatitude(restaurantList.get(i).getGeometry().getLocation().getLat());
-               // restaurantLocation.setLongitude(restaurantList.get(i).getGeometry().getLocation().getLat());
-                //Get the distance between currentLocation and restaurantLocation
-               // int distanceLocation = (int) currentLocation.distanceTo(restaurantLocation);
-               // restaurantList.get(i).setDistanceCurrentUser(distanceLocation);
-           // }
 
             mAdapterListView.updateData(restaurantList, mapUserByPlaceID);
             // SHOW LOADING DIALOG

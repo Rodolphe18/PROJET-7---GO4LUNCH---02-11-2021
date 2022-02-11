@@ -12,7 +12,6 @@ import java.util.List;
 
 public class AuthenticationServiceHelper implements AuthenticationService {
 
-    private final static int RC_SIGN = 123;
 
     @Override
     public Intent getAuthUIOfSignWithFacebook() {

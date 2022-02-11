@@ -34,10 +34,6 @@ public class UserHelper {
         return UserHelper.getUsersCollection().document(uid).get();
     }
 
-    //GET
-    public static Task<QuerySnapshot> getUsersOfADiscussionByID(String uid1, String uid2) {
-        return UserHelper.getUsersCollection().whereIn("userId", Arrays.asList(uid1, uid2)).get();
-    }
 
     //GET
     public static Task<QuerySnapshot> getAllUsers() {

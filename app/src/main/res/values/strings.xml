@@ -8,8 +8,8 @@
     <string name="sign_with_twitter_log_activity">Sign in with Twitter</string>
 
     <!-- FACEBOOK PURPOSE -->
-    <string name="facebook_application_id">243355614384710</string>
-    <string name="facebook_login_protocol_scheme">fb243355614384710</string>
+    <string name="facebook_application_id" translatable="false">243355614384710</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb243355614384710</string>
     <string name="facebook_client_token" translatable="false">442b0c98a733e076fa75684eab16c3c4</string>
 
     <!-- GOOGLE API KEY -->
@@ -52,7 +52,7 @@
     <string name="settings_activity_text_account">Account</string>
     <string name="settings_activity_button_delete_account">delete account</string>
     <!--MAIN ACTIVITY-->
-    <string name="main_activity_title">I am hungry !</string>
+    <string name="main_activity_title" translatable="false">I am hungry !</string>
     <string name="main_activity_title_workmates">Available workmates</string>
     <string name="alert_msg_today_eat">Today you will eat at </string>
     <string name="item_is_eating"> is eating at </string>

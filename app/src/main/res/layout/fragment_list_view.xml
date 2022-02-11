@@ -31,4 +31,5 @@
             android:orientation="vertical"
             tools:listitem="@layout/item_restaurant" />
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

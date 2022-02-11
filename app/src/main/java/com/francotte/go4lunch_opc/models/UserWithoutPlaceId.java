@@ -10,10 +10,11 @@ public class UserWithoutPlaceId {
     @Nullable
     private String urlPicture;
     //TOKEN
+    @Nullable
     private String token;
 
 
-    public UserWithoutPlaceId(String userId, String username, @Nullable String urlPicture, String token) {
+    public UserWithoutPlaceId(String userId, String username, @Nullable String urlPicture, @Nullable String token) {
         this.userId = userId;
         this.username = username;
         this.urlPicture = urlPicture;
@@ -34,6 +35,7 @@ public class UserWithoutPlaceId {
         return urlPicture;
     }
 
+    @Nullable
     public String getToken() {
         return token;
     }
@@ -51,7 +53,7 @@ public class UserWithoutPlaceId {
         this.urlPicture = urlPicture;
     }
 
-    public void setToken(String token) {
+    public void setToken(@Nullable String token) {
         this.token = token;
     }
 }

@@ -78,12 +78,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void configureBottomNavigationBar() {
         BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        new AppBarConfiguration.Builder(
                 R.id.navigation_map_view, R.id.navigation_list_view, R.id.navigation_workmates)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupWithNavController(navView, navController);
     }
+
 
     // Setup UI
     private void configureUI() {

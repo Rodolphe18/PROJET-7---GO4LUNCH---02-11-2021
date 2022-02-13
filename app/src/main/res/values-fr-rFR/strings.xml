@@ -63,6 +63,8 @@
     <string name="notification_part_2_eating">, aujourd\'hui vous mangez </string>
     <string name="notification_part_3_with">avec</string>
     <string name="notification_not_deceixded">Vous n\'avez pas encore décidé où vous déjeunerez !</string>
-
+    <string name="go4lunch">Go4Lunch</string>
+    <string name="settings_activity_name_user">NOM UTILISATEUR</string>
+    <string name="settings_activity_email_user">EMAIL UTILISATEUR</string>
 
 </resources>

@@ -19,6 +19,7 @@
         android:drawableTop="@drawable/ic_baseline_restaurant_24" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/fragment_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-25dp"

@@ -71,6 +71,9 @@
     <string name="notification_part_2_eating">, today you eat </string>
     <string name="notification_part_3_with">with</string>
     <string name="notification_not_deceixded">You have not decided where you eating !</string>
+    <string name="go4lunch">Go4Lunch</string>
+    <string name="settings_activity_name_user">NAME USER</string>
+    <string name="settings_activity_email_user">EMAIL USER</string>
 
 
 </resources>
